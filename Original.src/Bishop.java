@@ -35,6 +35,7 @@ public class Bishop extends ChessGamePiece{
      */
     @Override
     protected ArrayList<String> calculatePossibleMoves( ChessGameBoard board ){
+        //se puede refactorizar
         ArrayList<String> northEastMoves = calculateNorthEastMoves( board, 8 );
         ArrayList<String> northWestMoves = calculateNorthWestMoves( board, 8 );
         ArrayList<String> southEastMoves = calculateSouthEastMoves( board, 8 );
