@@ -14,4 +14,4 @@ Cuando descarga los archivos fuente, las clases de Java deben ir al paquete raí
 
 Nota sobre la autenticidad del código fuente:
 
-De hecho, cambié ligeramente el código fuente para usar la llamada anterior en lugar de "nuevo ImageIcon ([filePathHere)" o "createImageIcon ([Stringpath], [Stringdescription])". No funcionaría de otra manera. Ver https://docs.oracle.com/javase/tutorial/uiswing/components/icon.html for an explanation.
+De hecho, cambié ligeramente el código fuente para usar la llamada anterior en lugar de "nuevo ImageIcon ([filePathHere)" o "createImageIcon ([Stringpath], [Stringdescription])". No funcionaría de otra manera. Ver https://docs.oracle.com/javase/tutorial/uiswing/components/icon.html 
