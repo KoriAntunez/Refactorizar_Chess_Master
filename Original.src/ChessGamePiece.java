@@ -55,6 +55,8 @@ public abstract class ChessGamePiece{
      * @param pieceColor
      *            either GamePiece.WHITE, BLACK, or UNASSIGNED
      */
+    
+    /* ELIMINADO
     public ChessGamePiece(
         ChessGameBoard board,
         int row,
@@ -70,6 +72,7 @@ public abstract class ChessGamePiece{
         }
         possibleMoves = calculatePossibleMoves( board );
     }
+    */
     // ----------------------------------------------------------
     /**
      * Create a new GamePiece object. This constructor is used for special
@@ -101,7 +104,7 @@ public abstract class ChessGamePiece{
         if ( board.getCell( row, col ) != null ){
             board.getCell(row, col).setPieceOnSquare( this );
         }
-        if ( !this.skipMoveGeneration ){
+        if ( !this.skipMoveGeneration && board.getCell( row, col ) == null){
             possibleMoves = calculatePossibleMoves( board );
         }
     }
@@ -264,9 +267,79 @@ public abstract class ChessGamePiece{
      *            the number of moves to calculate
      * @return ArrayList<String> the moves in this direction
      */
+
+    /* 
+    AGREGADO
+    */
+    
+    protected ArrayList<String> calculateDirectionDirectionMoves(
+        ChessGameBoard board,
+        int numMoves, String oneDirection, String twoDirection ){
+        // fila y columna de la pieza depende de la dirección del movimiento    
+        int piece_row_direction = 0;
+        int piece_col_direction = 0;
+        /* 
+        // NorthWestMoves
+        int row_north_west = pieceRow - ini;
+        int col_north_west = pieceColumn - ini;
+
+        // NorthEastMoves
+        int row_north_east = pieceRow - ini;
+        int col_north_east = pieceColumn + ini;
+
+        // SouthWestMoves
+        int row_south_west = pieceRow + ini;
+        int col_south_west = pieceColumn - ini;
+
+        // SouthEastMoves
+        int row_south_east = pieceRow + ini;
+        int col_south_east = pieceColumn + ini;
+        */
+        
+        
+        ArrayList<String> moves = new ArrayList<String>();
+        int count = 0;
+        if ( isPieceOnScreen() ){
+            for ( int i = 1; i < 8 && count < numMoves; i++ ){
+                if(oneDirection == "North" && twoDirection == "West"){
+                    piece_row_direction = pieceRow - i;
+                    piece_col_direction = pieceColumn - i;
+                } else if(oneDirection == "North" && twoDirection == "East"){
+                    piece_row_direction = pieceRow - i;
+                    piece_col_direction = pieceColumn + i;
+                } else if(oneDirection == "South" && twoDirection == "West"){
+                    piece_row_direction = pieceRow + i;
+                    piece_col_direction = pieceColumn - i;
+                } else {
+                    piece_row_direction = pieceRow + i;
+                    piece_col_direction = pieceColumn + i;
+                }
+                if ( isOnScreen( piece_row_direction, piece_col_direction )
+                    && ( board.getCell( piece_row_direction,
+                        piece_col_direction ).getPieceOnSquare() == null ) ){
+                    moves.add( ( piece_row_direction ) + "," + ( piece_col_direction ) );
+                    count++;
+                }
+                else if ( isEnemy( board, piece_row_direction, piece_col_direction ) ){
+                    moves.add( ( piece_row_direction ) + "," + ( piece_col_direction ) );
+                    count++;
+                    break;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+        return moves;
+    }
+    
+
     protected ArrayList<String> calculateNorthWestMoves(
         ChessGameBoard board,
         int numMoves ){
+        
+        /* 
         ArrayList<String> moves = new ArrayList<String>();
         int count = 0;
         if ( isPieceOnScreen() ){
@@ -288,7 +361,10 @@ public abstract class ChessGamePiece{
                 }
             }
         }
-        return moves;
+        */
+        String oneDirection = "North";
+        String twoDirection = "West"; 
+        return calculateDirectionDirectionMoves(board,numMoves, oneDirection, twoDirection );
     }
     // ----------------------------------------------------------
     /**
@@ -304,6 +380,7 @@ public abstract class ChessGamePiece{
     protected ArrayList<String> calculateNorthEastMoves(
         ChessGameBoard board,
         int numMoves ){
+        /* 
         ArrayList<String> moves = new ArrayList<String>();
         int count = 0;
         if ( isPieceOnScreen() ){
@@ -326,6 +403,10 @@ public abstract class ChessGamePiece{
             }
         }
         return moves;
+        */
+        String oneDirection = "North";
+        String twoDirection = "East"; 
+        return calculateDirectionDirectionMoves(board,numMoves, oneDirection, twoDirection );
     }
     // ----------------------------------------------------------
     /**
@@ -341,7 +422,7 @@ public abstract class ChessGamePiece{
     protected ArrayList<String> calculateSouthWestMoves(
         ChessGameBoard board,
         int numMoves ){
-        ArrayList<String> moves = new ArrayList<String>();
+        /* ArrayList<String> moves = new ArrayList<String>();
         int count = 0;
         if ( isPieceOnScreen() ){
             for ( int i = 1; i < 8 && count < numMoves; i++ ){
@@ -363,6 +444,10 @@ public abstract class ChessGamePiece{
             }
         }
         return moves;
+        */
+        String oneDirection = "South";
+        String twoDirection = "West"; 
+        return calculateDirectionDirectionMoves(board,numMoves, oneDirection, twoDirection );
     }
     // ----------------------------------------------------------
     /**
@@ -378,6 +463,7 @@ public abstract class ChessGamePiece{
     protected ArrayList<String> calculateSouthEastMoves(
         ChessGameBoard board,
         int numMoves ){
+        /*
         ArrayList<String> moves = new ArrayList<String>();
         int count = 0;
         if ( isPieceOnScreen() ){
@@ -400,6 +486,10 @@ public abstract class ChessGamePiece{
             }
         }
         return moves;
+        */
+        String oneDirection = "South";
+        String twoDirection = "East"; 
+        return calculateDirectionDirectionMoves(board,numMoves, oneDirection, twoDirection );
     }
     /**
      * Creates the ImageIcon by the color of the piece.
