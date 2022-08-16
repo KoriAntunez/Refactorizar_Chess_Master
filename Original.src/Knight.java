@@ -1,5 +1,8 @@
 import javax.swing.ImageIcon;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 // -------------------------------------------------------------------------
 /**
  * Represents a Knight game piece.
@@ -11,6 +14,12 @@ import java.util.ArrayList;
  */
 public class Knight
     extends ChessGamePiece{
+
+    /**
+     * Map to link the piece color to it's path
+     * */
+    private Map<Integer, String> colors;
+
     /**
      * Knight constructor for gamePiece
      *
@@ -23,6 +32,7 @@ public class Knight
      * @param color
      *            either GamePiece.WHITE, BLACK, or UNASSIGNED
      */
+
     public Knight( ChessGameBoard board, int row, int col, int color ){
         super( board, row, col, color );
     }
@@ -90,6 +100,17 @@ public class Knight
         }
         return moves;
     }
+
+    /**
+     * Sets the piece colors to their paths
+     * */
+    public void setPieceColors(){
+        this.colors = Map.ofEntries(
+                new AbstractMap.SimpleEntry<>(ChessGamePiece.BLACK, "chessImages/BlackPawn.gif"),
+                new AbstractMap.SimpleEntry<>(ChessGamePiece.WHITE, "chessImages/WhitePawn.gif")
+        );
+    }
+
     /**
      * Creates an icon for this piece depending on the piece's color.
      *
@@ -97,21 +118,25 @@ public class Knight
      */
     @Override
     public ImageIcon createImageByPieceType(){
-        if ( getColorOfPiece() == ChessGamePiece.WHITE ){
-            return new ImageIcon(
-                getClass().getResource("chessImages/WhiteKnight.gif")
-            );            
-        }
-        else if ( getColorOfPiece() == ChessGamePiece.BLACK ){
-            return new ImageIcon(
-                getClass().getResource("chessImages/BlackKnight.gif")
-            );            
-        }
-        else
+
+        setPieceColors();
+
+        // looping over colors
+        for (Integer color : this.colors.keySet())
         {
-            return new ImageIcon(
-                getClass().getResource("chessImages/default-Unassigned.gif")
-            );            
+            // search for path
+            String imagePath = this.colors.get(color);
+
+            if( getColorOfPiece() == color){
+                return new ImageIcon(
+                        getClass().getResource(imagePath)
+                );
+            }
         }
+
+        return new ImageIcon(
+                getClass().getResource("chessImages/default-Unassigned.gif")
+        );
+
     }
 }
