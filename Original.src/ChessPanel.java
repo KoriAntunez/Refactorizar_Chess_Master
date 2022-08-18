@@ -26,8 +26,8 @@ public class ChessPanel
         menuBar = new ChessMenuBar();
         gameBoard = new ChessGameBoard();
         gameLog = new ChessGameLog();
-        playerOneGraveyard = new ChessGraveyard( "Player 1's graveyard" );
-        playerTwoGraveyard = new ChessGraveyard( "Player 2's graveyard" );
+        playerOneGraveyard = new ChessGraveyard( "Cementerio del jugador 1" );
+        playerTwoGraveyard = new ChessGraveyard( "Cementerio del jugador 2" );
         this.add( menuBar, BorderLayout.NORTH );
         this.add( gameBoard, BorderLayout.CENTER );
         this.add( gameLog, BorderLayout.SOUTH );
@@ -72,6 +72,15 @@ public class ChessPanel
      * @return ChessGraveyard the graveyard requested
      */
     public ChessGraveyard getGraveyard( int whichPlayer ){
+        switch(whichPlayer) {
+			case 1:
+                return playerOneGraveyard;
+			case 2:
+                return playerTwoGraveyard;
+			default:
+                 return null;
+		}
+        /* 
         if ( whichPlayer == 1 ){
             return playerOneGraveyard;
         }
@@ -81,6 +90,6 @@ public class ChessPanel
         else
         {
             return null;
-        }
+        }*/
     }
 }
